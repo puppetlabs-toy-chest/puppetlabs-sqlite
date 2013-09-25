@@ -1,7 +1,16 @@
 # Class: sqlite
 #
-# This class manages the installation of the sqlite
-# database.
+# This class manages the installation of the sqlite database.
+# === Parameters:
+#
+# There are no default parameters for this class.
+#
+# === Variables
+#
+# $package
+#   Dynamically set depending on OS
+# $ensure
+#   Defaults to present
 #
 # Sample Usage:
 # class { 'sqlite': }

@@ -1,6 +1,6 @@
 # Define: sqlite::db
 #
-# This define allows for managing the existance of a sqlite database
+# This define allows for managing the existence of a sqlite database
 #
 # Parameters:
 #  $location:
@@ -10,7 +10,7 @@
 #  $group:
 #    The group owning the sqlite database file on disk
 #  $mode:
-#    The mode of the sqlite datbase file on disk
+#    The mode of the sqlite database file on disk
 #  $ensure:
 #    Whether the database should be `present` or `absent`. Defaults to `present`
 #  $sqlite_cmd:
