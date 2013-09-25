@@ -5,9 +5,13 @@
 #
 # Sample Usage:
 # class { 'sqlite': }
-class sqlite {
-  package { 'sqlite':
-    ensure => installed,
+class sqlite (
+  $package = $sqlite::params::package,
+  $ensure  = $sqlite::params::ensure
+) inherits sqlite::params {
+
+  package { $package:
+    ensure => $ensure,
   }
 
   file { '/var/lib/sqlite/':
