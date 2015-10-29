@@ -16,13 +16,22 @@
 #  $sqlite_cmd:
 #    The sqlite command for the node's platform.  Defaults to `sqlite3`
 define sqlite::db(
-    $location   = '',
-    $owner      = 'root',
-    $group      = 0,
-    $mode       = '755',
-    $ensure     = present,
-    $sqlite_cmd = 'sqlite3'
+    $location       = '',
+    $owner          = 'root',
+    $group          = 0,
+    $mode           = '755',
+    $ensure         = present,
+    $sql            = undef,
+    $enforce_sql    = false,
+    $import_timeout = 300,
+    $sqlite_cmd     = 'sqlite3'
   ) {
+
+  if !(is_array($sql) or is_string($sql)) {
+    fail('$sql must be either a string or an array.')
+  }
+
+  $sql_inputs = join([$sql], ' ')
 
   $safe_location = $location ? {
     ''      => "/var/lib/sqlite/${name}.db",
@@ -40,5 +49,18 @@ define sqlite::db(
     command     => "${sqlite_cmd} $safe_location",
     path        => '/usr/bin:/usr/local/bin',
     refreshonly => true,
+  }
+
+  if $sql {
+    $refresh = ! $enforce_sql
+
+    exec{ "${dbname}-import":
+      command     => "cat ${sql_inputs} | ${sqlite_cmd} ${safe_location}",
+      logoutput   => true,
+      refreshonly => $refresh,
+      path        => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin',
+      subscribe   => Exec["create_${name}_db"],
+      timeout     => $import_timeout,
+    }
   }
 }
