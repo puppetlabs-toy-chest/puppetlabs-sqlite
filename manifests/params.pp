@@ -26,7 +26,7 @@ class sqlite::params {
     ubuntu, debian: {
       $package = 'sqlite3'
     }
-    centos, fedora, redhat: {
+    centos, fedora, redhat, oraclelinux: {
       $package = 'sqlite'
     }
     default: {
