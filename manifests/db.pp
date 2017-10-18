@@ -54,7 +54,7 @@ define sqlite::db(
   if $sql {
     $refresh = ! $enforce_sql
 
-    exec{ "${dbname}-import":
+    exec{ "${name}-import":
       command     => "cat ${sql_inputs} | ${sqlite_cmd} ${safe_location}",
       logoutput   => true,
       refreshonly => $refresh,
