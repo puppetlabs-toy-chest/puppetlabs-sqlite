@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-sqlite",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Puppet Labs",
   "summary": "Installs, configures, and manages the SQLite service.",
   "license": "Apache-2.0",
